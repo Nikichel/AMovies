@@ -4,8 +4,8 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragments.MovieListFragment"
-    android:background="#191926">
+    android:background="#191926"
+    android:paddingTop="8dp">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -14,8 +14,7 @@
         android:layout_height="300dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:background="@drawable/bg"
-        >
+        android:background="@drawable/bg">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/preview"
@@ -61,6 +60,7 @@
                 android:layout_marginStart="6dp">
             </TextView>
             <TextView
+                android:id="@+id/category"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:text="13+"
@@ -151,6 +151,7 @@
                 </ImageView>
 
                 <TextView
+                    android:id="@+id/count_reviews"
                     android:layout_width="112dp"
                     android:layout_height="12dp"
                     android:text="125 Reviews"
@@ -176,6 +177,7 @@
         </TextView>
 
         <TextView
+            android:id="@+id/duration"
             android:layout_width="match_parent"
             android:layout_height="12dp"
             android:text="137 MIN"
@@ -185,8 +187,6 @@
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="8dp">
         </TextView>
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

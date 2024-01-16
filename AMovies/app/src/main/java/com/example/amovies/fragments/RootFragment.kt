@@ -8,11 +8,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.example.amovies.R
+import com.example.amovies.domain.MovieDataSource
+import com.example.amovies.recycleView.RecycleMovieAdapter
 
 class RootFragment : Fragment() {
 
     private var listener: Listener? = null
+    private var recyclerView: RecyclerView? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -22,11 +28,21 @@ class RootFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        requireActivity().supportFragmentManager.beginTransaction().add(R.id.preview_movie, MovieListFragment()).commit()
+        recyclerView = view.findViewById(R.id.list_movies)
+        recyclerView?.adapter = RecycleMovieAdapter()
+        recyclerView?.layoutManager = GridLayoutManager(requireActivity(), 2)
+/*        requireActivity().supportFragmentManager.beginTransaction().add(R.id.preview_movie, MovieListFragment()).commit()
 
         view.findViewById<FrameLayout>(R.id.preview_movie).setOnClickListener {
             Log.d("CheckStatusListener", "RootFragment::: ${listener.toString()}")
             listener?.goDetail()
+        }*/
+    }
+
+    override fun onStart() {
+        super.onStart()
+        (recyclerView?.adapter as? RecycleMovieAdapter)?.apply {
+            bindMovies(MovieDataSource().getMovies())
         }
     }
 
@@ -41,9 +57,6 @@ class RootFragment : Fragment() {
         listener = null
     }
 
-/*    fun setListener(l: Listener){
-        listener = l
-    }*/
     companion object{
         interface Listener{
             fun goDetail()

@@ -9,19 +9,14 @@ import com.example.amovies.fragments.RootFragment
 
 class MainActivity : AppCompatActivity(), RootFragment.Companion.Listener, MovieDetailFragment.Companion.Listener {
 
-    /*private val rootFragment = RootFragment().apply {
-        setListener(this@MainActivity)
-    }*/
     private val rootFragment = RootFragment()
-    /*private val movieDetailFragment = MovieDetailFragment().apply {
-        setListener(this@MainActivity)
-    }*/
     private val movieDetailFragment = MovieDetailFragment()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         if(savedInstanceState == null)
             supportFragmentManager.beginTransaction().add(R.id.fragment_container, rootFragment).commit()
+
     }
 
     override fun goBack() {
