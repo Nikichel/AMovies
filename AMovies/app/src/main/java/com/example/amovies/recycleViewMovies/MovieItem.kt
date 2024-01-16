@@ -1,8 +1,4 @@
-package com.example.amovies.recycleView
-
-import android.widget.ImageView
-import android.widget.TextView
-import com.example.amovies.R
+package com.example.amovies.recycleViewMovies
 
 data class MovieItem(
     val title: String,
@@ -10,5 +6,7 @@ data class MovieItem(
     val movieTags: String,
     val countReviews: String,
     val movieImageBackground: Int,
-    val category: String
+    val category: String,
+    val movieImageBackgroundDetail: Int,
+    val storyline: String
 )

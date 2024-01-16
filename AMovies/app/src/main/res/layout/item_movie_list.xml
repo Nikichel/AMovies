@@ -25,7 +25,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="1dp">
 
-            <ImageView
+            <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/movie_bg"
                 android:layout_width="166dp"
                 android:layout_height="0dp"
@@ -33,8 +33,11 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:src="@drawable/avengers_end_game">
-            </ImageView>
+                android:src="@drawable/avengers_end_game"
+                android:adjustViewBounds="true"
+                android:layout_marginTop="1dp"
+                app:shapeAppearanceOverlay="@style/roundedTopCorners">
+            </com.google.android.material.imageview.ShapeableImageView>
 
             <View
                 android:id="@+id/gradient_bg"

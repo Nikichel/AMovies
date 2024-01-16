@@ -1,12 +1,16 @@
 <vector xmlns:tools="http://schemas.android.com/tools"
-    android:autoMirrored="true" android:height="298dp"
-    android:viewportHeight="298" android:viewportWidth="375"
-    android:width="375dp" xmlns:aapt="http://schemas.android.com/aapt" xmlns:android="http://schemas.android.com/apk/res/android"
+    android:autoMirrored="true"
+    android:height="298dp"
+    android:viewportHeight="298"
+    android:viewportWidth="375"
+    android:width="375dp"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     tools:ignore="VectorRaster">
     <path android:pathData="M0,0H375V298H0V0Z">
         <aapt:attr name="android:fillColor">
             <gradient android:endX="108.47" android:endY="274.61"
-                android:startX="108.47" android:startY="149" android:type="linear">
+                android:startX="108.47" android:startY="130" android:type="linear">
                 <item android:color="#02191926" android:offset="0"/>
                 <item android:color="#FF191926" android:offset="1"/>
             </gradient>
