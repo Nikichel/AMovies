@@ -16,7 +16,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingBottom="60dp">
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/banner"
@@ -210,85 +211,34 @@
                 </TextView>
             </RelativeLayout>
 
-            <RelativeLayout
+            <TextView
+                android:id="@+id/cast"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="Cast"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:textColor="#ECECEC"
                 app:layout_constraintTop_toBottomOf="@id/storyline"
                 android:layout_marginTop="24dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="16dp">
+            </TextView>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/list_actors"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cast"
+                android:layout_marginStart="8dp"
+                tools:listitem="@layout/item_actor"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginEnd="16dp"
-                android:layout_marginBottom="100dp">
+                tools:itemCount="1">
+            </androidx.recyclerview.widget.RecyclerView>
 
-                <TextView
-                    android:id="@+id/cast"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Cast"
-                    android:textStyle="bold"
-                    android:textSize="20sp"
-                    android:textColor="#ECECEC">
-                </TextView>
-
-                <TextView
-                    android:id="@+id/robert_downey"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/cast"
-                    android:text="Robert\nDowney Jr."
-                    android:textSize="14sp"
-                    android:drawableTop="@drawable/robert_downey"
-                    android:textColor="#D8D8D8"
-                    android:layout_marginTop="8dp"
-                    android:drawablePadding="6dp">
-                </TextView>
-
-                <TextView
-                    android:id="@+id/chris_evans"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/cast"
-                    android:layout_toEndOf="@+id/robert_downey"
-                    android:layout_marginStart="8dp"
-                    android:text="Chris\nEvans"
-                    android:textSize="14sp"
-                    android:drawableTop="@drawable/chris_evans"
-                    android:textColor="#D8D8D8"
-                    android:layout_marginTop="8dp"
-                    android:drawablePadding="6dp">
-                </TextView>
-
-                <TextView
-                    android:id="@+id/mark_ruffalo"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/cast"
-                    android:layout_toEndOf="@+id/chris_evans"
-                    android:layout_marginStart="8dp"
-                    android:text="Mark\nRuffalo"
-                    android:textSize="14sp"
-                    android:drawableTop="@drawable/mark_ruffalo"
-                    android:textColor="#D8D8D8"
-                    android:layout_marginTop="8dp"
-                    android:drawablePadding="6dp">
-                </TextView>
-
-                <TextView
-                    android:id="@+id/c"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/cast"
-                    android:layout_toEndOf="@+id/mark_ruffalo"
-                    android:layout_marginStart="8dp"
-                    android:text="Chris\nHemsworth"
-                    android:textSize="14sp"
-                    android:drawableTop="@drawable/chris_hemsworth"
-                    android:textColor="#D8D8D8"
-                    android:layout_marginTop="8dp"
-                    android:drawablePadding="6dp">
-                </TextView>
-            </RelativeLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

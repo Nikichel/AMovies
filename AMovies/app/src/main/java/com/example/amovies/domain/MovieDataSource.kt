@@ -1,9 +1,32 @@
 package com.example.amovies.domain
 
 import com.example.amovies.R
+import com.example.amovies.recycleViewActor.ActorItem
 import com.example.amovies.recycleViewMovies.MovieItem
 
 class MovieDataSource {
+
+    fun getActors(): List<ActorItem>{
+        return listOf(
+            ActorItem(
+                R.drawable.robert_downey,
+                "Robert Downey"
+            ),
+            ActorItem(
+                R.drawable.scarlett_johansson,
+                "Scarlett Johansson"
+            ),
+            ActorItem(
+                R.drawable.gal_gadot,
+                "Gal Gadot"
+            ),
+            ActorItem(
+                R.drawable.john_david,
+                "John David"
+            ),
+
+        )
+    }
     fun getMovies(): List<MovieItem> {
         return listOf(
             MovieItem(

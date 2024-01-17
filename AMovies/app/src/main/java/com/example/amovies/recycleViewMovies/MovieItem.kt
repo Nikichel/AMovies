@@ -1,5 +1,7 @@
 package com.example.amovies.recycleViewMovies
 
+import com.example.amovies.recycleViewActor.ActorItem
+
 data class MovieItem(
     val title: String,
     val duration: String,

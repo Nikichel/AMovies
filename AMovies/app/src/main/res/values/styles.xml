@@ -6,4 +6,12 @@
         <item name="cornerSizeTopLeft">6dp</item>
     </style>
 
+    <style name="roundedAllCorners">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">6dp</item>
+        <item name="cornerSizeTopLeft">6dp</item>
+        <item name="cornerSizeBottomRight">6dp</item>
+        <item name="cornerSizeBottomLeft">6dp</item>
+    </style>
+
 </resources>

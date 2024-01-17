@@ -2,22 +2,25 @@ package com.example.amovies.fragments
 
 import android.content.Context
 import android.os.Bundle
-import android.os.Parcelable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.amovies.R
+import com.example.amovies.domain.MovieDataSource
+import com.example.amovies.recycleViewActor.RecyclerActorsAdapter
 import com.example.amovies.recycleViewMovies.MovieItem
-import java.io.Serializable
+import com.example.amovies.recycleViewMovies.RecycleMovieAdapter
 
-class MovieDetailFragment(): Fragment() {
+class MovieDetailFragment: Fragment() {
 
     private var listener: Listener? = null
     private var movieItem: MovieItem? = null
+    private var recyclerViewActors: RecyclerView? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,9 +45,18 @@ class MovieDetailFragment(): Fragment() {
         if(movieItem!=null) {
             loadLayout(view)
         }
+        recyclerViewActors = view.findViewById(R.id.list_actors)
+        recyclerViewActors?.adapter = RecyclerActorsAdapter()
+        recyclerViewActors?.layoutManager =LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
         view.findViewById<TextView>(R.id.back_tv).setOnClickListener {
-            Log.d("CheckStatusListener", "MovieDetailFragment::: ${listener.toString()}")
             listener?.goBack()
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        (recyclerViewActors?.adapter as? RecyclerActorsAdapter)?.apply {
+            bindActors(MovieDataSource().getActors())
         }
     }
 

@@ -36,12 +36,6 @@ class RootFragment : Fragment() {
         recyclerView = view.findViewById(R.id.list_movies)
         recyclerView?.adapter = RecycleMovieAdapter(clickListener)
         recyclerView?.layoutManager = GridLayoutManager(requireActivity(), 2)
-/*        requireActivity().supportFragmentManager.beginTransaction().add(R.id.preview_movie, MovieListFragment()).commit()
-
-        view.findViewById<FrameLayout>(R.id.preview_movie).setOnClickListener {
-            Log.d("CheckStatusListener", "RootFragment::: ${listener.toString()}")
-            listener?.goDetail()
-        }*/
     }
 
     override fun onStart() {

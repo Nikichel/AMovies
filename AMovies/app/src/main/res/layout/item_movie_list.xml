@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#191926"
-    android:paddingTop="8dp">
+    android:paddingTop="12dp">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
