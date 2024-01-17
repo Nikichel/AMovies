@@ -5,28 +5,25 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.amovies.R
-import com.example.amovies.domain.MovieDataSource
+import com.example.amovies.model.Movie
 import com.example.amovies.recycleViewActor.RecyclerActorsAdapter
-import com.example.amovies.recycleViewMovies.MovieItem
-import com.example.amovies.recycleViewMovies.RecycleMovieAdapter
 
 class MovieDetailFragment: Fragment() {
 
     private var listener: Listener? = null
-    private var movieItem: MovieItem? = null
+    private var movieItem: Movie? = null
     private var recyclerViewActors: RecyclerView? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        if(savedInstanceState!=null){
+/*        if(savedInstanceState!=null){
             val title = savedInstanceState.getString(TITLE).toString()
             val duration = savedInstanceState.getString(DURATION).toString()
             val movieTags = savedInstanceState.getString(MOVIE_TAGS).toString()
@@ -36,7 +33,7 @@ class MovieDetailFragment: Fragment() {
             val storyline = savedInstanceState.getString(STORYLINE).toString()
 
             movieItem = MovieItem(title, duration,movieTags,countReviews,0, category,movieImageBackground, storyline)
-        }
+        }*/
         return inflater.inflate(R.layout.fragment_movie_detail, container, false)
     }
 
@@ -56,19 +53,19 @@ class MovieDetailFragment: Fragment() {
     override fun onStart() {
         super.onStart()
         (recyclerViewActors?.adapter as? RecyclerActorsAdapter)?.apply {
-            bindActors(MovieDataSource().getActors())
+            bindActors(movieItem!!.actors)
         }
     }
 
     private fun loadLayout(view: View){
-        view.findViewById<ImageView>(R.id.img_bg).setImageResource(movieItem!!.movieImageBackgroundDetail)
+        //view.findViewById<ImageView>(R.id.img_bg).setImageResource(movieItem!!.movieImageBackgroundDetail)
         view.findViewById<TextView>(R.id.title).text = movieItem!!.title
-        view.findViewById<TextView>(R.id.tag).text = movieItem!!.movieTags
-        view.findViewById<TextView>(R.id.count_reviews).text = movieItem!!.countReviews
-        view.findViewById<TextView>(R.id.category).text = movieItem!!.category
-        view.findViewById<TextView>(R.id.storyline_text).text = movieItem!!.storyline
+        view.findViewById<TextView>(R.id.tag).text = movieItem!!.genres.joinToString(", "){ it.name }
+        view.findViewById<TextView>(R.id.count_reviews).text = "${movieItem!!.reviewCount.toString()} Reviews"
+        view.findViewById<TextView>(R.id.category).text = "${movieItem!!.pgAge}+"
+        view.findViewById<TextView>(R.id.storyline_text).text = movieItem!!.storyLine
     }
-    fun setMovieData(movieItem: MovieItem){
+    fun setMovieData(movieItem: Movie){
         this.movieItem = movieItem
     }
 
@@ -85,7 +82,7 @@ class MovieDetailFragment: Fragment() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        if(movieItem!=null) {
+/*        if(movieItem!=null) {
             outState.apply {
                 putString(TITLE, movieItem!!.title)
                 putString(DURATION, movieItem!!.duration)
@@ -95,7 +92,7 @@ class MovieDetailFragment: Fragment() {
                 putInt(IMAGE_BACKGROUND, movieItem!!.movieImageBackgroundDetail)
                 putString(STORYLINE, movieItem!!.storyline)
             }
-        }
+        }*/
     }
 
     companion object{

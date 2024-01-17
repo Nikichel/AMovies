@@ -7,17 +7,18 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.amovies.R
+import com.example.amovies.model.Actor
 
 class RecyclerActorsAdapter: RecyclerView.Adapter<RecyclerActorsAdapter.ViewHolderActor>() {
 
-    private var actors = listOf<ActorItem>()
+    private var actors = listOf<Actor>()
     class ViewHolderActor(itemView: View) : RecyclerView.ViewHolder(itemView){
         private val imageActor: ImageView = itemView.findViewById(R.id.image_actor)
         private val nameActor: TextView = itemView.findViewById(R.id.name_actor)
 
-        fun bind(actorItem: ActorItem){
-            imageActor.setImageResource(actorItem.imageActor)
-            nameActor.text = actorItem.nameActor
+        fun bind(actorItem: Actor){
+            //imageActor.setImageResource(actorItem.imageActor)
+            nameActor.text = actorItem.name
         }
     }
 
@@ -34,7 +35,7 @@ class RecyclerActorsAdapter: RecyclerView.Adapter<RecyclerActorsAdapter.ViewHold
         holder.bind(actors[position])
     }
 
-    fun bindActors(listActors: List<ActorItem>){
+    fun bindActors(listActors: List<Actor>){
         actors = listActors
         notifyDataSetChanged()
 

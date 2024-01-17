@@ -80,9 +80,10 @@
             </TextView>
 
             <View
-                android:layout_width="16dp"
-                android:layout_height="14dp"
-                android:background="@drawable/like"
+                android:id="@+id/liked"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:background="@drawable/unliked"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginEnd="6dp"
@@ -104,7 +105,7 @@
                     android:layout_height="8dp"
                     android:layout_marginTop="2dp"
                     android:layout_marginBottom="2dp"
-                    android:src="@drawable/fill_star"
+                    android:src="@drawable/empty_star"
                     android:layout_marginEnd="2dp">
                 </ImageView>
 
@@ -114,7 +115,7 @@
                     android:layout_height="8dp"
                     android:layout_marginTop="2dp"
                     android:layout_marginBottom="2dp"
-                    android:src="@drawable/fill_star"
+                    android:src="@drawable/empty_star"
                     android:layout_marginEnd="2dp"
                     android:layout_toEndOf="@id/first_star">
                 </ImageView>
@@ -125,7 +126,7 @@
                     android:layout_height="8dp"
                     android:layout_marginTop="2dp"
                     android:layout_marginBottom="2dp"
-                    android:src="@drawable/fill_star"
+                    android:src="@drawable/empty_star"
                     android:layout_marginEnd="2dp"
                     android:layout_toEndOf="@id/second_star">
                 </ImageView>
@@ -136,7 +137,7 @@
                     android:layout_height="8dp"
                     android:layout_marginTop="2dp"
                     android:layout_marginBottom="2dp"
-                    android:src="@drawable/fill_star"
+                    android:src="@drawable/empty_star"
                     android:layout_marginEnd="2dp"
                     android:layout_toEndOf="@id/third_star">
                 </ImageView>
