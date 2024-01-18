@@ -33,7 +33,7 @@ class RootFragment : Fragment() {
     private val clickListener = object: ListenerClick {
         override fun onClick(movieItem: Movie) {
             val fragmentDetail = MovieDetailFragment()
-            fragmentDetail.setMovieData(movieItem)
+            fragmentDetail.addMovie(movieItem)
             requireActivity().supportFragmentManager.beginTransaction().addToBackStack(null).add(R.id.fragment_container, fragmentDetail).commit()
         }
     }

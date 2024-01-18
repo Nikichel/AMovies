@@ -15,6 +15,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
@@ -44,13 +45,6 @@ class RecycleMovieAdapter(private val listener: ListenerClick): RecyclerView.Ada
             duration.text = "${movie.runningTime} MIN"
             movieTags.text = movie.genres.joinToString(", "){ it.name }
 
-            //movieImageBackground.setImageResource(movieItem.movieImageBackground)
-            Log.d("CheckURL", movie.imageUrl)
-            GlobalScope.launch(Dispatchers.Main){
-                val bitmap = loadImage(movie.imageUrl)
-                movieImageBackground.setImageBitmap(bitmap)
-            }
-
             category.text = "${movie.pgAge}+"
             countReviews.text = "${movie.reviewCount} Reviews"
 
@@ -61,6 +55,12 @@ class RecycleMovieAdapter(private val listener: ListenerClick): RecyclerView.Ada
 
             for(i in 0 until movie.rating){
                 starts[i].setImageResource(R.drawable.fill_star)
+            }
+
+            //movieImageBackground.setImageResource(movieItem.movieImageBackground)
+            MainScope().launch{
+                val bitmap = loadImage(movie.imageUrl)
+                movieImageBackground.setImageBitmap(bitmap)
             }
         }
         private suspend fun loadImage(url: String): Bitmap {

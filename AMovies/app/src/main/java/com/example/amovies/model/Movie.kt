@@ -1,5 +1,8 @@
 package com.example.amovies.model
 
+import android.os.Parcelable
+import java.io.Serializable
+
 data class Movie(
     val id: Int,
     val pgAge: Int,
@@ -13,4 +16,4 @@ data class Movie(
     val detailImageUrl: String,
     val storyLine: String,
     val actors: List<Actor>,
-)
+) : Serializable
