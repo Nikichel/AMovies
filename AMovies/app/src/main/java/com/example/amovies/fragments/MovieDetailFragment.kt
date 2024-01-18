@@ -12,12 +12,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.amovies.R
 import com.example.amovies.model.Movie
 import com.example.amovies.recycleViewActor.RecyclerActorsAdapter
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
 
 class MovieDetailFragment: Fragment() {
 
     private var listener: Listener? = null
     private var movieItem: Movie? = null
     private var recyclerViewActors: RecyclerView? = null
+    private val scope = CoroutineScope(Dispatchers.IO)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -59,14 +65,22 @@ class MovieDetailFragment: Fragment() {
 
     private fun loadLayout(view: View){
         //view.findViewById<ImageView>(R.id.img_bg).setImageResource(movieItem!!.movieImageBackgroundDetail)
+
+
+
         view.findViewById<TextView>(R.id.title).text = movieItem!!.title
         view.findViewById<TextView>(R.id.tag).text = movieItem!!.genres.joinToString(", "){ it.name }
-        view.findViewById<TextView>(R.id.count_reviews).text = "${movieItem!!.reviewCount.toString()} Reviews"
+        view.findViewById<TextView>(R.id.count_reviews).text = "${movieItem!!.reviewCount} Reviews"
         view.findViewById<TextView>(R.id.category).text = "${movieItem!!.pgAge}+"
         view.findViewById<TextView>(R.id.storyline_text).text = movieItem!!.storyLine
     }
     fun setMovieData(movieItem: Movie){
         this.movieItem = movieItem
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        scope.cancel()
     }
 
     override fun onAttach(context: Context) {

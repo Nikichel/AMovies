@@ -3,12 +3,14 @@ package com.example.amovies
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.example.amovies.data.JsonMovieRepository
 import com.example.amovies.fragments.MovieDetailFragment
 import com.example.amovies.fragments.RootFragment
 import com.example.amovies.model.Actor
 import com.example.amovies.model.Movie
+import com.example.amovies.recycleViewMovies.RecycleMovieAdapter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -19,7 +21,7 @@ import kotlinx.coroutines.withContext
 class MainActivity : AppCompatActivity(), MovieDetailFragment.Companion.Listener {
 
     private val rootFragment = RootFragment()
-    private val scope = CoroutineScope(Dispatchers.Main)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -28,10 +30,6 @@ class MainActivity : AppCompatActivity(), MovieDetailFragment.Companion.Listener
                 .commit()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        scope.cancel()
-    }
     override fun goBack() {
         supportFragmentManager.beginTransaction().replace(R.id.fragment_container, rootFragment).commit()
     }
