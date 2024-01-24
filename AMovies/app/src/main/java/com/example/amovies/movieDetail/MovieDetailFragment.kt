@@ -1,8 +1,6 @@
-package com.example.amovies.fragments
+package com.example.amovies.movieDetail
 
 import android.content.Context
-import android.content.pm.ModuleInfo
-import android.graphics.Bitmap
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,26 +9,26 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
+import coil.load
+import com.example.amovies.MovieRepositoryProvider
 import com.example.amovies.R
 import com.example.amovies.model.Movie
-import com.example.amovies.recycleViewActor.RecyclerActorsAdapter
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.cancel
+import com.example.amovies.moviesList.ViewModelMoviesFactory
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class MovieDetailFragment: Fragment() {
 
-    private var movie: Movie? = null
+    //private var movie: Movie? = null
     private var listener: Listener? = null
     private var recyclerViewActors: RecyclerView? = null
-    private val scope = CoroutineScope(Dispatchers.IO)
+    private val viewModel: ViewModelMovieDetail by viewModels {
+        ViewModelMovieDetailFactory((requireActivity() as MovieRepositoryProvider).provideMovieRepository())
+    }
+    //private val scope = CoroutineScope(Dispatchers.IO)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,7 +40,27 @@ class MovieDetailFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (savedInstanceState != null) {
+        val movieId = arguments?.getSerializable(PARAM_MOVIE_ID) as? Int ?: return
+        Log.d("MovieInfoLog", "ID: $movieId")
+
+        recyclerViewActors = view.findViewById(R.id.list_actors)
+        recyclerViewActors.apply {
+            this?.adapter = RecyclerActorsAdapter()
+            this?.layoutManager =LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
+        }
+        view.findViewById<TextView>(R.id.back_tv).setOnClickListener {
+            listener?.goBack()
+        }
+
+        lifecycleScope.launch {
+            viewModel.movie.collect{ movie ->
+                movie?.let { bindUI(view, it) }
+            }
+        }
+
+        viewModel.loadMovie(movieId)
+
+/*        if (savedInstanceState != null) {
             movie = savedInstanceState.getSerializable(MOVIE) as Movie
         }
         scope.launch { loadLayout(view) }
@@ -51,22 +69,39 @@ class MovieDetailFragment: Fragment() {
         recyclerViewActors?.layoutManager =LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
         view.findViewById<TextView>(R.id.back_tv).setOnClickListener {
             listener?.goBack()
-        }
+        }*/
+    }
+
+    private fun bindUI(view: View, movie: Movie) {
+        Log.d("MovieInfoLog", movie.toString())
+        updateMovieDetailsInfo(movie)
+        val adapter = view.findViewById<RecyclerView>(R.id.list_actors).adapter as RecyclerActorsAdapter
+        adapter.submitList(movie.actors)
+    }
+
+    private fun updateMovieDetailsInfo(movie: Movie){
+        view?.findViewById<TextView>(R.id.title)?.text = movie.title
+        view?.findViewById<TextView>(R.id.tag)?.text = movie.genres.joinToString(", ") { it.name }
+        view?.findViewById<TextView>(R.id.count_reviews)?.text = "${movie.reviewCount} Reviews"
+        view?.findViewById<TextView>(R.id.category)?.text = "${movie.pgAge}+"
+        view?.findViewById<TextView>(R.id.storyline_text)?.text = movie.storyLine
+        view?.findViewById<ImageView>(R.id.img_bg)?.load(movie.detailImageUrl)
+        //view.findViewById<ImageView>(R.id.img_bg).setImageBitmap(loadImage(movie!!.detailImageUrl))
     }
 
     override fun onStart() {
         super.onStart()
-        (recyclerViewActors?.adapter as? RecyclerActorsAdapter)?.apply {
+/*        (recyclerViewActors?.adapter as? RecyclerActorsAdapter)?.apply {
             if(movie!=null)
                 bindActors(movie!!.actors)
-        }
+        }*/
     }
 
     fun addMovie(movie: Movie){
-        this.movie = movie
+        //this.movie = movie
     }
 
-    private suspend fun loadLayout(view: View) = withContext(Dispatchers.Main){
+/*    private suspend fun loadLayout(view: View) = withContext(Dispatchers.Main){
         if(movie!=null) {
             view.findViewById<TextView>(R.id.title).text = movie!!.title
             view.findViewById<TextView>(R.id.tag).text = movie!!.genres.joinToString(", ") { it.name }
@@ -75,9 +110,9 @@ class MovieDetailFragment: Fragment() {
             view.findViewById<TextView>(R.id.storyline_text).text = movie!!.storyLine
             view.findViewById<ImageView>(R.id.img_bg).setImageBitmap(loadImage(movie!!.detailImageUrl))
         }
-    }
+    }*/
 
-    private suspend fun loadImage(url: String): Bitmap {
+/*    private suspend fun loadImage(url: String): Bitmap {
         return withContext(Dispatchers.IO) {
             Glide.with(requireActivity())
                 .asBitmap()
@@ -85,11 +120,11 @@ class MovieDetailFragment: Fragment() {
                 .submit()
                 .get()
         }
-    }
+    }*/
 
     override fun onDestroy() {
         super.onDestroy()
-        scope.cancel()
+        //scope.cancel()
     }
 
     override fun onAttach(context: Context) {
@@ -105,7 +140,7 @@ class MovieDetailFragment: Fragment() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putSerializable(MOVIE, movie)
+        //outState.putSerializable(MOVIE, movie)
     }
 
     companion object{
@@ -113,6 +148,7 @@ class MovieDetailFragment: Fragment() {
             fun goBack()
         }
 
+        private const val PARAM_MOVIE_ID = "movie_id"
         const val MOVIE = "movie"
 
     }

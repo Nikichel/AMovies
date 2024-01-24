@@ -1,27 +1,20 @@
-package com.example.amovies.recycleViewMovies
+package com.example.amovies.moviesList
 
 import android.graphics.Bitmap
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
+import coil.load
 import com.example.amovies.R
 import com.example.amovies.model.Movie
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.cancel
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
-class RecycleMovieAdapter(private val listener: ListenerClick): RecyclerView.Adapter<RecycleMovieAdapter.MovieViewHolder>() {
+class RecycleMovieAdapter(private val listener: ListenerClick):
+    ListAdapter<Movie, RecycleMovieAdapter.MovieViewHolder>(DiffCallback()){
 
     private var movies = listOf<Movie>()
     class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
@@ -58,12 +51,13 @@ class RecycleMovieAdapter(private val listener: ListenerClick): RecyclerView.Ada
             }
 
             //movieImageBackground.setImageResource(movieItem.movieImageBackground)
-            MainScope().launch{
+/*            MainScope().launch{
                 val bitmap = loadImage(movie.imageUrl)
                 movieImageBackground.setImageBitmap(bitmap)
-            }
+            }*/
+            movieImageBackground.load(movie.imageUrl)
         }
-        private suspend fun loadImage(url: String): Bitmap {
+/*        private suspend fun loadImage(url: String): Bitmap {
             return withContext(Dispatchers.IO) {
                 Glide.with(context)
                     .asBitmap()
@@ -71,6 +65,16 @@ class RecycleMovieAdapter(private val listener: ListenerClick): RecyclerView.Ada
                     .submit()
                     .get()
             }
+        }*/
+    }
+
+    class DiffCallback : DiffUtil.ItemCallback<Movie>() {
+        override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+            return oldItem == newItem
         }
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {

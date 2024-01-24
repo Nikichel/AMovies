@@ -51,5 +51,12 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
     implementation ("org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.2")
-    implementation ("com.github.bumptech.glide:glide:4.16.0")
+    /*implementation ("com.github.bumptech.glide:glide:4.16.0")*/
+    implementation("io.coil-kt:coil:1.4.0")
+
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
+    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0")
+    implementation ("androidx.fragment:fragment-ktx:1.6.2")
+
+
 }
