@@ -4,10 +4,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.amovies.data.JsonMovieRepository
 import com.example.amovies.data.MovieRepository
+import com.example.amovies.model.Movie
 import com.example.amovies.movieDetail.MovieDetailFragment
 import com.example.amovies.moviesList.RootFragment
 
 class MainActivity : AppCompatActivity(),
+    RootFragment.Companion.ListenerDetail,
     MovieDetailFragment.Companion.Listener,
     MovieRepositoryProvider {
 
@@ -30,8 +32,11 @@ class MainActivity : AppCompatActivity(),
     }
 
     override fun provideMovieRepository(): MovieRepository = repoMovies
-
-    /*    override fun goDetail() {
-            supportFragmentManager.beginTransaction().addToBackStack(null).add(R.id.fragment_container, movieDetailFragment).commit()
-        }*/
+    override fun goDetail(movie: Movie) {
+        supportFragmentManager
+            .beginTransaction()
+            .addToBackStack(null)
+            .add(R.id.fragment_container, MovieDetailFragment.create(movie.id))
+            .commit()
+    }
 }

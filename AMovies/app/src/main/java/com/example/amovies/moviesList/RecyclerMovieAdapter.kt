@@ -1,6 +1,5 @@
 package com.example.amovies.moviesList
 
-import android.graphics.Bitmap
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,10 +12,8 @@ import coil.load
 import com.example.amovies.R
 import com.example.amovies.model.Movie
 
-class RecycleMovieAdapter(private val listener: ListenerClick):
+class RecycleMovieAdapter(private val onClickCard: (item: Movie) -> Unit):
     ListAdapter<Movie, RecycleMovieAdapter.MovieViewHolder>(DiffCallback()){
-
-    private var movies = listOf<Movie>()
     class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         private val title: TextView = itemView.findViewById(R.id.title)
         private val duration: TextView = itemView.findViewById(R.id.duration)
@@ -25,7 +22,7 @@ class RecycleMovieAdapter(private val listener: ListenerClick):
         private val movieImageBackground: ImageView = itemView.findViewById(R.id.movie_bg)
         private val category: TextView = itemView.findViewById(R.id.category)
         private val liked: View = itemView.findViewById(R.id.liked)
-        private val starts: List<ImageView> = listOf(
+        private val stars: List<ImageView> = listOf(
             itemView.findViewById(R.id.first_star),
             itemView.findViewById(R.id.second_star),
             itemView.findViewById(R.id.third_star),
@@ -33,7 +30,7 @@ class RecycleMovieAdapter(private val listener: ListenerClick):
             itemView.findViewById(R.id.fifth_star)
         )
 
-        fun bind(movie: Movie){
+        fun bind(movie: Movie, onClickCard:  (item: Movie) -> Unit){
             title.text = movie.title
             duration.text = "${movie.runningTime} MIN"
             movieTags.text = movie.genres.joinToString(", "){ it.name }
@@ -47,25 +44,15 @@ class RecycleMovieAdapter(private val listener: ListenerClick):
                 liked.setBackgroundResource(R.drawable.unliked)
 
             for(i in 0 until movie.rating){
-                starts[i].setImageResource(R.drawable.fill_star)
+                stars[i].setImageResource(R.drawable.fill_star)
             }
 
-            //movieImageBackground.setImageResource(movieItem.movieImageBackground)
-/*            MainScope().launch{
-                val bitmap = loadImage(movie.imageUrl)
-                movieImageBackground.setImageBitmap(bitmap)
-            }*/
             movieImageBackground.load(movie.imageUrl)
-        }
-/*        private suspend fun loadImage(url: String): Bitmap {
-            return withContext(Dispatchers.IO) {
-                Glide.with(context)
-                    .asBitmap()
-                    .load(url)
-                    .submit()
-                    .get()
+
+            itemView.setOnClickListener {
+                onClickCard(movie)
             }
-        }*/
+        }
     }
 
     class DiffCallback : DiffUtil.ItemCallback<Movie>() {
@@ -77,38 +64,14 @@ class RecycleMovieAdapter(private val listener: ListenerClick):
             return oldItem == newItem
         }
     }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         return MovieViewHolder(inflater.inflate(R.layout.item_movie_list, parent, false))
-
-    }
-
-    override fun getItemCount(): Int {
-        return movies.size
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        holder.bind(movies[position])
-        holder.itemView.setOnClickListener{
-            listener.onClick(movies[position])
-        }
-
-        holder.itemView.findViewById<View>(R.id.liked).setOnClickListener{
-            movies[position].isLiked = !movies[position].isLiked
-            notifyItemChanged(position)
-        }
-    }
-
-    fun bindMovies(listMovies: List<Movie>){
-        movies = listMovies
-        notifyDataSetChanged()
-
+        val item = getItem(position)
+        holder.bind(item, onClickCard)
     }
 }
-
-interface ListenerClick{
-    fun onClick(movieItem: Movie)
-}
-
-private val RecyclerView.ViewHolder.context
-    get() = this.itemView.context

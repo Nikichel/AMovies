@@ -1,5 +1,6 @@
 package com.example.amovies.moviesList
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -20,6 +21,7 @@ class ViewModelMovies(private val repository: MovieRepository): ViewModel() {
     private fun loadMovies(){
         viewModelScope.launch {
             _moviesList.value = repository.loadMovies()
+            Log.d("checkList", "${_moviesList.value}")
         }
     }
 }

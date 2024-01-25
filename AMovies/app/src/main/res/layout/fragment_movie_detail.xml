@@ -125,7 +125,7 @@
                     android:id="@+id/first_star"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:src="@drawable/fill_star"
+                    android:src="@drawable/empty_star"
                     android:layout_marginEnd="4dp">
                 </ImageView>
 
@@ -133,7 +133,7 @@
                     android:id="@+id/second_star"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:src="@drawable/fill_star"
+                    android:src="@drawable/empty_star"
                     android:layout_marginEnd="4dp"
                     android:layout_toEndOf="@id/first_star">
                 </ImageView>
@@ -142,7 +142,7 @@
                     android:id="@+id/third_star"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:src="@drawable/fill_star"
+                    android:src="@drawable/empty_star"
                     android:layout_marginEnd="4dp"
                     android:layout_toEndOf="@id/second_star">
                 </ImageView>
@@ -151,7 +151,7 @@
                     android:id="@+id/fourth_star"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:src="@drawable/fill_star"
+                    android:src="@drawable/empty_star"
                     android:layout_marginEnd="4dp"
                     android:layout_toEndOf="@id/third_star">
                 </ImageView>

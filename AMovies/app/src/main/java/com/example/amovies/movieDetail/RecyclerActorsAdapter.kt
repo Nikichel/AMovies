@@ -13,14 +13,11 @@ import com.example.amovies.R
 import com.example.amovies.model.Actor
 
 class RecyclerActorsAdapter: ListAdapter<Actor, RecyclerActorsAdapter.ViewHolderActor>(DiffCallback()) {
-
-    private var actors = listOf<Actor>()
     class ViewHolderActor(itemView: View) : RecyclerView.ViewHolder(itemView){
         private val imageActor: ImageView = itemView.findViewById(R.id.image_actor)
         private val nameActor: TextView = itemView.findViewById(R.id.name_actor)
 
         fun bind(actorItem: Actor){
-            //imageActor.setImageResource(actorItem.imageActor)
             nameActor.text = actorItem.name
             imageActor.load(actorItem.imageUrl)
         }
@@ -35,22 +32,14 @@ class RecyclerActorsAdapter: ListAdapter<Actor, RecyclerActorsAdapter.ViewHolder
             return oldItem == newItem
         }
     }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderActor {
         val inflater = LayoutInflater.from(parent.context)
         return ViewHolderActor(inflater.inflate(R.layout.item_actor, parent, false))
     }
 
-    override fun getItemCount(): Int {
-        return actors.size
-    }
-
     override fun onBindViewHolder(holder: ViewHolderActor, position: Int) {
-        holder.bind(actors[position])
+        val item = getItem(position)
+        holder.bind(item)
     }
-
-/*    fun bindActors(listActors: List<Actor>){
-        actors = listActors
-        notifyDataSetChanged()
-
-    }*/
 }
