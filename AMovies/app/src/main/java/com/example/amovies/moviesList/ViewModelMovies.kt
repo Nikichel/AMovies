@@ -1,8 +1,6 @@
 package com.example.amovies.moviesList
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.amovies.data.MovieRepository
 import com.example.amovies.model.Movie
