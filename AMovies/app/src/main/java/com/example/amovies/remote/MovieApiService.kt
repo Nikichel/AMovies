@@ -1,6 +1,7 @@
 package com.example.amovies.remote
 
 import com.example.amovies.remote.Responses.ConfigResponse
+import com.example.amovies.remote.Responses.PopularMoviesResponse
 import retrofit2.http.GET
 
 interface MovieApiService {
@@ -8,5 +9,5 @@ interface MovieApiService {
     suspend fun loadConfiguration(): ConfigResponse
 
     @GET("movie/popular")
-    suspend fun getMoviesList()/*: MoviesPopularResponse*/
+    suspend fun getMoviesList(): PopularMoviesResponse
 }

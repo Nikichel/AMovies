@@ -2,7 +2,7 @@ package com.example.amovies
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.amovies.data.JsonMovieRepository
+
 import com.example.amovies.data.MovieRepository
 import com.example.amovies.model.Movie
 import com.example.amovies.movieDetail.MovieDetailFragment

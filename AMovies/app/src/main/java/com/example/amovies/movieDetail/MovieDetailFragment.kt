@@ -71,16 +71,16 @@ class MovieDetailFragment: Fragment() {
         Log.d("MovieInfoLog", movie.toString())
         updateMovieDetailsInfo(movie)
         val adapter = view.findViewById<RecyclerView>(R.id.list_actors).adapter as RecyclerActorsAdapter
-        adapter.submitList(movie.actors)
+        //adapter.submitList(movie.actors)
     }
 
     private fun updateMovieDetailsInfo(movie: Movie){
         view?.findViewById<TextView>(R.id.title)?.text = movie.title
-        view?.findViewById<TextView>(R.id.tag)?.text = movie.genres.joinToString(", ") { it.name }
+        //view?.findViewById<TextView>(R.id.tag)?.text = movie.genres.joinToString(", ") { it.name }
         view?.findViewById<TextView>(R.id.count_reviews)?.text = "${movie.reviewCount} Reviews"
         view?.findViewById<TextView>(R.id.category)?.text = "${movie.pgAge}+"
-        view?.findViewById<TextView>(R.id.storyline_text)?.text = movie.storyLine
-        view?.findViewById<ImageView>(R.id.img_bg)?.load(movie.detailImageUrl)
+        //view?.findViewById<TextView>(R.id.storyline_text)?.text = movie.storyLine
+        //view?.findViewById<ImageView>(R.id.img_bg)?.load(movie.detailImageUrl)
 
         val stars = listOf<ImageView?>(
             view?.findViewById(R.id.first_star),
