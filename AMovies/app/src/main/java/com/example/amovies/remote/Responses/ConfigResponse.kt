@@ -5,10 +5,10 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ConfigResponse (
-    val images: Images
+    val images: ImagesResponse
 )
 
 @Serializable
-data class Images (
+data class ImagesResponse(
     @SerialName("secure_base_url") val baseURL: String,
 )
