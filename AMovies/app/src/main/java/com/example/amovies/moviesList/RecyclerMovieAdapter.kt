@@ -34,7 +34,7 @@ class RecycleMovieAdapter(private val onClickCard: (item: Movie) -> Unit):
         fun bind(movie: Movie, onClickCard:  (item: Movie) -> Unit){
             title.text = movie.title
             duration.text = "${movie.runningTime} MIN"
-            //movieTags.text = movie.genres.joinToString(", "){ it.name }
+            movieTags.text = movie.genres.joinToString(", "){ it.name }
 
             category.text = "${movie.pgAge}+"
             countReviews.text = "${movie.reviewCount} Reviews"
@@ -44,9 +44,9 @@ class RecycleMovieAdapter(private val onClickCard: (item: Movie) -> Unit):
             else
                 liked.setBackgroundResource(R.drawable.unliked)
 
-/*            for(i in 0 until movie.rating){
+            for(i in 0 until movie.rating/2){
                 stars[i].setImageResource(R.drawable.fill_star)
-            }*/
+            }
 
             Log.d("TMDB_IMG_LOAD", movie.imageUrl.toString())
             movieImageBackground.load(movie.imageUrl){

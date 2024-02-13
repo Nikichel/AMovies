@@ -8,17 +8,24 @@ class ImageUrlCreator(private val api: MovieApiService) {
     private var configResponse: ImagesResponse? = null
     private var baseUrl: String? = null
     private val posterSize = "w300"
+    private val backdropSize = "original"
     suspend fun getMoviePosterImageUrl(moviePosterPath: String): String? {
         loadConfiguration()
 
-        return buildUrl(baseUrl, moviePosterPath)
+        return buildUrl(baseUrl, posterSize, moviePosterPath)
     }
 
-    private fun buildUrl(url: String?, path: String?): String? {
+    suspend fun getMovieBackdropImageUrl(moviePosterPath: String): String? {
+        loadConfiguration()
+
+        return buildUrl(baseUrl, backdropSize, moviePosterPath)
+    }
+
+    private fun buildUrl(url: String?,size: String, path: String?): String? {
         return if (url == null || path == null) {
             null
         } else {
-            return "$url$posterSize$path"
+            return "$url$size$path"
         }
     }
 

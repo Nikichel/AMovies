@@ -2,6 +2,7 @@ package com.example.amovies
 
 import com.example.amovies.data.MovieRepository
 import com.example.amovies.model.Movie
+import com.example.amovies.model.MovieDetails
 import com.example.amovies.remote.RetrofitDataSource
 
 class MovieRepositoryNetwork(private val remoteDataSource: RetrofitDataSource): MovieRepository{
@@ -9,8 +10,8 @@ class MovieRepositoryNetwork(private val remoteDataSource: RetrofitDataSource): 
         return remoteDataSource.loadMovies()
     }
 
-    override suspend fun loadMovie(movieId: Int): Movie? {
-        TODO("Not yet implemented")
+    override suspend fun loadMovie(movieId: Int): MovieDetails {
+        return remoteDataSource.loadMovie(movieId)
     }
 
 }

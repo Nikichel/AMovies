@@ -19,6 +19,7 @@ import coil.load
 import com.example.amovies.MovieRepositoryProvider
 import com.example.amovies.R
 import com.example.amovies.model.Movie
+import com.example.amovies.model.MovieDetails
 import kotlinx.coroutines.launch
 
 class MovieDetailFragment: Fragment() {
@@ -51,14 +52,16 @@ class MovieDetailFragment: Fragment() {
             listener?.goBack()
         }
 
-        lifecycleScope.launch {
-            viewModel.movie.collect{ movie ->
-                movie?.let { bindUI(view, it) }
-            }
-        }
-
         viewModel.loadMovie(movieId)
-    }
+
+        viewModel.movie.observe(viewLifecycleOwner
+        ) { movie ->
+            bindUI(view, movie)
+        }
+            /*viewModel.movie.collect{ movie ->
+                movie?.let { bindUI(view, it) }
+            }*/
+        }
 
     private fun showMovieNotFoundError(){
         Toast.makeText(
@@ -67,20 +70,25 @@ class MovieDetailFragment: Fragment() {
             Toast.LENGTH_LONG
         ).show()
     }
-    private fun bindUI(view: View, movie: Movie) {
+    private fun bindUI(view: View, movie: MovieDetails) {
         Log.d("MovieInfoLog", movie.toString())
         updateMovieDetailsInfo(movie)
         val adapter = view.findViewById<RecyclerView>(R.id.list_actors).adapter as RecyclerActorsAdapter
-        //adapter.submitList(movie.actors)
+        adapter.submitList(movie.actors)
     }
 
-    private fun updateMovieDetailsInfo(movie: Movie){
+    private fun updateMovieDetailsInfo(movie: MovieDetails){
         view?.findViewById<TextView>(R.id.title)?.text = movie.title
-        //view?.findViewById<TextView>(R.id.tag)?.text = movie.genres.joinToString(", ") { it.name }
+        view?.findViewById<TextView>(R.id.tag)?.text = movie.genres.joinToString(", ") { it.name }
         view?.findViewById<TextView>(R.id.count_reviews)?.text = "${movie.reviewCount} Reviews"
         view?.findViewById<TextView>(R.id.category)?.text = "${movie.pgAge}+"
-        //view?.findViewById<TextView>(R.id.storyline_text)?.text = movie.storyLine
-        //view?.findViewById<ImageView>(R.id.img_bg)?.load(movie.detailImageUrl)
+        view?.findViewById<TextView>(R.id.storyline_text)?.text = movie.storyLine
+        view?.findViewById<ImageView>(R.id.img_bg)?.load(movie.detailImageUrl){
+            placeholder(R.drawable.download_img)
+            error(R.drawable.download_error)
+        }
+
+        Log.d("MovieInfoLog", movie.detailImageUrl.toString())
 
         val stars = listOf<ImageView?>(
             view?.findViewById(R.id.first_star),
@@ -90,7 +98,7 @@ class MovieDetailFragment: Fragment() {
             view?.findViewById(R.id.first_star)
         )
 
-        for(i in 0 until movie.rating){
+        for(i in 0 until movie.rating/2){
             stars[i]?.setImageResource(R.drawable.fill_star)
         }
     }

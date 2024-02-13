@@ -4,6 +4,7 @@ import android.content.Context
 import com.example.amovies.model.Actor
 import com.example.amovies.model.Genre
 import com.example.amovies.model.Movie
+import com.example.amovies.model.MovieDetails
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -12,7 +13,7 @@ import kotlinx.serialization.json.Json
 
 interface MovieRepository {
     suspend fun loadMovies(): List<Movie>
-    suspend fun loadMovie(movieId: Int): Movie?
+    suspend fun loadMovie(movieId: Int): MovieDetails
 }
 /*
 

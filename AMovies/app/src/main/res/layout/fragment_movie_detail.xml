@@ -25,13 +25,14 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 app:barrierDirection="bottom"
-                app:layout_constraintGuide_begin="240dp">
+                app:layout_constraintGuide_begin="220dp">
+
             </androidx.constraintlayout.widget.Guideline>
 
             <ImageView
                 android:id="@+id/img_bg"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
                 app:layout_constraintBottom_toTopOf="@id/banner"
                 app:layout_constraintEnd_toEndOf="parent"
