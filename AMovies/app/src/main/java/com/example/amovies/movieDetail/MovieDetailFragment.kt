@@ -71,7 +71,6 @@ class MovieDetailFragment: Fragment() {
         ).show()
     }
     private fun bindUI(view: View, movie: MovieDetails) {
-        Log.d("MovieInfoLog", movie.toString())
         updateMovieDetailsInfo(movie)
         val adapter = view.findViewById<RecyclerView>(R.id.list_actors).adapter as RecyclerActorsAdapter
         adapter.submitList(movie.actors)
@@ -87,8 +86,6 @@ class MovieDetailFragment: Fragment() {
             placeholder(R.drawable.download_img)
             error(R.drawable.download_error)
         }
-
-        Log.d("MovieInfoLog", movie.detailImageUrl.toString())
 
         val stars = listOf<ImageView?>(
             view?.findViewById(R.id.first_star),

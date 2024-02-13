@@ -20,7 +20,6 @@ class MainActivity : AppCompatActivity(),
     private val remoteDataSource = RetrofitDataSource(networkModule.api, ImageUrlCreator(networkModule.api))
     private val repoMovies = MovieRepositoryNetwork(remoteDataSource)
 
-    //private val repoMovies = JsonMovieRepository(this)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)

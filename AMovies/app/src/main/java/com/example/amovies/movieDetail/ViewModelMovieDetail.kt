@@ -20,12 +20,7 @@ class ViewModelMovieDetail(private val repository: MovieRepository): ViewModel()
 
     fun loadMovie(movieId: Int){
         viewModelScope.launch {
-            try{
-                _movie.value = repository.loadMovie(movieId)
-            }catch (e: Exception){
-                Log.d("ViewModelMovieDetail", e.toString())
-            }
+            _movie.value = repository.loadMovie(movieId)
         }
-
     }
 }

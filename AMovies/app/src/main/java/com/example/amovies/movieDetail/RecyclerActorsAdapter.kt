@@ -1,5 +1,6 @@
 package com.example.amovies.movieDetail
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,7 +20,11 @@ class RecyclerActorsAdapter: ListAdapter<Actor, RecyclerActorsAdapter.ViewHolder
 
         fun bind(actorItem: Actor){
             nameActor.text = actorItem.name
-            imageActor.load(actorItem.imageUrl)
+            Log.d("ActorAdapterLog", actorItem.imageUrl.toString())
+            imageActor.load(actorItem.imageUrl){
+                placeholder(R.drawable.download_img)
+                error(R.drawable.download_error)
+            }
         }
     }
 

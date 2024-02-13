@@ -9,6 +9,7 @@ class ImageUrlCreator(private val api: MovieApiService) {
     private var baseUrl: String? = null
     private val posterSize = "w300"
     private val backdropSize = "original"
+    private val profileSize = "w185"
     suspend fun getMoviePosterImageUrl(moviePosterPath: String): String? {
         loadConfiguration()
 
@@ -19,6 +20,12 @@ class ImageUrlCreator(private val api: MovieApiService) {
         loadConfiguration()
 
         return buildUrl(baseUrl, backdropSize, moviePosterPath)
+    }
+
+    suspend fun getActorImageUrl(profilePath: String?): String? {
+        loadConfiguration()
+
+        return buildUrl(baseUrl, profileSize, profilePath)
     }
 
     private fun buildUrl(url: String?,size: String, path: String?): String? {

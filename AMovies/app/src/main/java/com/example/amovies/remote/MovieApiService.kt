@@ -1,5 +1,6 @@
 package com.example.amovies.remote
 
+import com.example.amovies.remote.Responses.CastResponse
 import com.example.amovies.remote.Responses.ConfigResponse
 import com.example.amovies.remote.Responses.GenresResponse
 import com.example.amovies.remote.Responses.MovieDetailsResponse
@@ -21,4 +22,9 @@ interface MovieApiService {
     suspend fun loadMovieDetails(
         @Path("movie_id") movieId: Int
     ): MovieDetailsResponse
+
+    @GET("movie/{movie_id}/credits")
+    suspend fun loadMovieCredits(
+        @Path("movie_id") movieId: Int
+    ): CastResponse
 }

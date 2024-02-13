@@ -1,10 +1,10 @@
 package com.example.amovies.remote
 
+import android.util.Log
 import com.example.amovies.model.Actor
 import com.example.amovies.model.Genre
 import com.example.amovies.model.Movie
 import com.example.amovies.model.MovieDetails
-import kotlinx.serialization.SerialName
 
 private const val ADULT_AGE = 16
 private const val CHILD_AGE = 13
@@ -36,30 +36,25 @@ class RetrofitDataSource (
     override suspend fun loadMovie(movieId: Int): MovieDetails {
         val details = api.loadMovieDetails(movieId)
 
+        Log.d("ViewModelMovieDetail", details.genres.toString())
+
         return MovieDetails(
             id = details.id,
             pgAge = details.adult.toSpectatorAge(),
             title = details.title,
             genres = details.genres.map { Genre(it.id, it.name) },
-            reviewCount = details.revenue,
+            reviewCount = details.voteCount,
             isLiked = false,
-            rating = details.popularity.toInt(),
+            rating = details.voteAverage.toInt(),
             detailImageUrl = imageUrlCreator.getMovieBackdropImageUrl(details.backdropPath),
             storyLine = details.overview.orEmpty(),
-            actors = arrayListOf(
-                Actor(
-                    id = 123,
-                    name = "Niki",
-                    imageUrl = "https://faroutmagazine.co.uk/static/uploads/1/2022/05/How-did-Dwayne-Johnson-become-the-highest-paid-Hollywood-actor.jpg"
-                )
-            )
-/*            actors = api.loadMovieCredits(movieId).casts.map { actor ->
+            actors = api.loadMovieCredits(movieId).casts.map { actor ->
                 Actor(
                     id = actor.id,
                     name = actor.name,
-                    imageUrl = imageUrlAppender.getActorImageUrl(actor.profilePath)
+                    imageUrl = imageUrlCreator.getActorImageUrl(actor.profilePath)
                 )
-            }*/
+            }
         )
     }
 
