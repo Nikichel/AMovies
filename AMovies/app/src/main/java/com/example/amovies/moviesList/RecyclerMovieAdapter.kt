@@ -39,10 +39,7 @@ class RecycleMovieAdapter(private val onClickCard: (item: Movie) -> Unit):
             category.text = "${movie.pgAge}+"
             countReviews.text = "${movie.reviewCount} Reviews"
 
-            if(movie.isLiked)
-                liked.setBackgroundResource(R.drawable.liked)
-            else
-                liked.setBackgroundResource(R.drawable.unliked)
+            isLiked(movie)
 
             for(i in 0 until movie.rating/2){
                 stars[i].setImageResource(R.drawable.fill_star)
@@ -53,10 +50,20 @@ class RecycleMovieAdapter(private val onClickCard: (item: Movie) -> Unit):
                 placeholder(R.drawable.download_img)
                 error(R.drawable.download_error)
             }
-
+            liked.setOnClickListener {
+                movie.isLiked = !movie.isLiked
+                isLiked(movie)
+            }
             itemView.setOnClickListener {
                 onClickCard(movie)
             }
+        }
+
+        private fun isLiked(movie: Movie) {
+            if (movie.isLiked)
+                liked.setBackgroundResource(R.drawable.liked)
+            else
+                liked.setBackgroundResource(R.drawable.unliked)
         }
     }
 
